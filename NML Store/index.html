@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No Man's Land Store</title>
+    <script src="https://www.paypalobjects.com/ncp/cart/cart.js" data-merchant-id="LR6BWVJN7Z2WA"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: url('No Man\'s Land.webp') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .store-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            margin: 8px;
+            border-radius: 8px;
+            text-align: center;
+            width: 160px;
+            font-size: 14px;
+        }
+        img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .paypal-container {
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .paypal-container img {
+            width: 150px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>No Man's Land DayZ Store</h1>
+
+    <paypal-cart-button data-id="pp-view-cart"></paypal-cart-button>
+    <script>
+        cartPaypal.Cart({ id: "pp-view-cart" })
+    </script>
+
+    <div class="store-container" id="store"></div>
+
+    <div class="paypal-container">
+        <h2>Scan to Pay via PayPal</h2>
+        <img src="qrcode.png" alt="PayPal QR Code">
+        <p>Scan this QR code with your PayPal app to complete the payment.</p>
+    </div>
+
+    <div class="paypal-container">
+        <h3>Delivery & Payment Policy</h3>
+        <p>All items are delivered in-game via MMG Chest. Please ensure your base location is accurate and secure. Items will be placed even if the base has been raided. All payments are final—no refunds.</p>
+        <p>Thank you for your purchase! Enjoy your new gear and stay safe out there, survivor.</p>
+    </div>
+
+    <script>
+        const businessEmail = "dayznomanslandstore@gmail.com";
+
+        const items = [
+            { name: "Tools Pack", price: "0.50", image: "https://via.placeholder.com/100" },
+            { name: "10x Canned Food Pack", price: "0.50", image: "https://via.placeholder.com/100" },
+            { name: "Tier 3 Gear", price: "0.50", image: "https://via.placeholder.com/100" },
+            { name: "Tier 4 Gear", price: "0.50", image: "https://via.placeholder.com/100" },
+            { name: "Basic Weapon", price: "1.00", image: "https://via.placeholder.com/100" },
+            { name: "Advanced Weapon", price: "1.00", image: "https://via.placeholder.com/100" },
+            { name: "MMG Locker", price: "0.50", image: "https://via.placeholder.com/100" },
+            { name: "Ammo Box", price: "1.00", image: "https://via.placeholder.com/100" },
+            { name: "Magazine", price: "1.00", image: "https://via.placeholder.com/100" },
+            { name: "Battery", price: "1.00", image: "https://via.placeholder.com/100" },
+            { name: "9V Battery", price: "1.00", image: "https://via.placeholder.com/100" },
+            { name: "Construction Pack", price: "0.50", image: "https://via.placeholder.com/100" },
+            { name: "Advanced Construction", price: "0.50", image: "https://via.placeholder.com/100" },
+            { name: "Builder Plus", price: "0.50", image: "https://via.placeholder.com/100" }
+        ];
+
+        const storeContainer = document.getElementById("store");
+
+        items.forEach(item => {
+            const itemDiv = document.createElement("div");
+            itemDiv.classList.add("item");
+            itemDiv.innerHTML = `
+                <img src="${item.image}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                <p>$${item.price}</p>
+                <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                    <input type="hidden" name="cmd" value="_cart">
+                    <input type="hidden" name="business" value="${businessEmail}">
+                    <input type="hidden" name="item_name" value="${item.name}">
+                    <input type="hidden" name="amount" value="${item.price}">
+                    <input type="hidden" name="currency_code" value="USD">
+                    <input type="hidden" name="add" value="1">
+                    <input type="submit" value="Add to Cart" />
+                </form>
+            `;
+            storeContainer.appendChild(itemDiv);
+        });
+    </script>
+</body>
+</html>
